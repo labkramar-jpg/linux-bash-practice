@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+# Task 06: Define a function that accepts three numbers and prints their arithmetic mean.
+
 average_three() {
   local a=$1 b=$2 c=$3
   awk -v a="$a" -v b="$b" -v c="$c" 'BEGIN { printf "%.2f\n", (a+b+c)/3 }'

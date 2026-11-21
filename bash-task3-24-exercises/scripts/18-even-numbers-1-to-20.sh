@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+# Task 18: Print all even numbers from 1 to 20 using a for loop.
+
 for ((i=1; i<=20; i++)); do
   if ((i % 2 == 0)); then
     echo "$i"

@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
-read -r -p "Введите имя: " name
-printf 'Привет, %s!\n' "$name"
+
+# Task 01: Read a name from standard input and print a greeting.
+
+read -r -p "Enter your name: " name
+printf 'Hello, %s!\n' "$name"

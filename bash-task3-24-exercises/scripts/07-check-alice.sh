@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
+
+# Task 07: If the name is Alice, greet her; otherwise, print "Who are you?".
+
 name="Alice"
 if [[ "$name" == "Alice" ]]; then
-  printf 'Привет, %s!\n' "$name"
+  printf 'Hello, %s!\n' "$name"
 else
-  echo "Вы кто?"
+  echo "Who are you?"
 fi

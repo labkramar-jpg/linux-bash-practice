@@ -1,10 +1,10 @@
-# Задания №2 — Linux Commands
+# Task 2 — Linux Commands
 
-> Команды предназначены преимущественно для Linux (Ubuntu). Некоторые примеры подразумевают существующие файлы/процессы в учебной среде. Выполнять команды удаления и завершения процессов только после проверки цели.
+> Commands primarily target Linux (Ubuntu). Some examples assume existing files or processes in a lab environment. Only delete files or terminate processes after verifying the target.
 
-## 1. Текущая папка, скрытые файлы и размер
+## 1. Current directory, hidden files, and disk usage
 
-**Условие:** Ты в терминале. Выведи полный путь, где ты сейчас, покажи все файлы, включая скрытые, с правами, и сколько места занимает текущая папка.
+**Task:** In the terminal, display the full path of your current directory, list all files including hidden files with their permissions, and show the disk usage of the current directory.
 
 ```bash
 pwd
@@ -12,9 +12,9 @@ ls -la
 du -sh .
 ```
 
-## 2. Вложенные папки и пустой файл
+## 2. Nested directories and an empty file
 
-**Условие:** Создай в `/tmp` структуру `labs/task2/a/b/c`. Создай внутри `c` пустой файл `test.txt`. Потом вернись в предыдущую папку одной командой.
+**Task:** Create the directory structure `labs/task2/a/b/c` under `/tmp`. Create an empty file named `test.txt` inside `c`. Then return to the previous directory using one command.
 
 ```bash
 mkdir -p /tmp/labs/task2/a/b/c
@@ -23,11 +23,11 @@ cd /tmp/labs/task2/a/b/c
 cd ..
 ```
 
-`cd ..` поднимает на один уровень вверх (из `c` в `b`); `cd -` возвращает в каталог до предыдущего `cd`.
+`cd ..` moves up one directory level (from `c` to `b`); `cd -` returns to the directory you were in before the previous `cd`.
 
-## 3. Копирование каталога и удаление оригинала
+## 3. Copying a directory and deleting the original
 
-**Условие:** Скопируй папку `/tmp/labs/task2` в `/tmp/labs/task2_backup` целиком. Удали оригинал `/tmp/labs/task2`.
+**Task:** Copy the entire `/tmp/labs/task2` directory to `/tmp/labs/task2_backup`. Delete the original `/tmp/labs/task2`.
 
 ```bash
 cp -r /tmp/labs/task2 /tmp/labs/task2_backup
@@ -35,53 +35,53 @@ ls -la /tmp/labs/task2_backup/a/b/c
 rm -r /tmp/labs/task2
 ```
 
-## 4. Просмотр начала и конца лога
+## 4. Viewing the beginning and end of a log file
 
-**Условие:** В файле `/var/log/auth.log` посмотри последние 50 строк и включи слежение в реальном времени. Вторым способом выведи первые 20 строк.
+**Task:** Display the last 50 lines of `/var/log/auth.log` and follow new entries in real time. Separately, display the first 20 lines.
 
 ```bash
 tail -n 50 -f /var/log/auth.log
-# Остановить слежение: Ctrl+C
+# Stop following the log: Ctrl+C
 head -n 20 /var/log/auth.log
 ```
 
-## 5. Поиск файлов .log
+## 5. Finding .log files
 
-**Условие:** Найди все файлы с расширением `.log` во всей системе, но скрой ошибки `Permission denied`.
+**Task:** Find all files with the `.log` extension across the system while hiding `Permission denied` errors.
 
 ```bash
 find / -type f -iname "*.log" 2>/dev/null
 ```
 
-## 6. Поиск Failed password в журналах
+## 6. Searching logs for Failed password
 
-**Условие:** Найди во всех файлах в `/var/log/` строки со словами `Failed password` без учёта регистра, покажи номер строки и имя файла.
+**Task:** Find lines containing `Failed password` in all files under `/var/log/`, ignoring case. Display line numbers and filenames.
 
 ```bash
 grep -rinH "Failed password" /var/log/
 ```
 
-## 7. Строки с IP-адресами
+## 7. Finding lines containing IP addresses
 
-**Условие:** В файле `/etc/passwd` найди все строки, где есть IP-адрес. Выведи только их.
+**Task:** Find and display only the lines in `/etc/passwd` that contain an IP address.
 
 ```bash
 grep -E '([0-9]{1,3}\.){3}[0-9]{1,3}' /etc/passwd
 ```
 
-`/etc/passwd` обычно не содержит IP-адресов. Шаблон учебный: он не проверяет допустимость каждого октета IPv4 (0–255).
+`/etc/passwd` does not normally contain IP addresses. This educational pattern does not validate each IPv4 octet (0–255).
 
-## 8. Топ-10 IP по неудачным входам
+## 8. Top 10 IP addresses by failed login attempts
 
-**Условие:** Из `/var/log/auth.log` вытащи все IP с неудачных попыток входа `Failed password`, посчитай, сколько раз каждый IP пытался войти, и выведи топ-10 самых частых.
+**Task:** Extract IP addresses from `Failed password` entries in `/var/log/auth.log`, count attempts per IP address, and display the 10 most frequent addresses.
 
 ```bash
 grep -i "Failed password" /var/log/auth.log | grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' | sort | uniq -c | sort -nr | head -n 10
 ```
 
-## 9. Права файла script.sh
+## 9. Permissions for script.sh
 
-**Условие:** Есть файл `script.sh`. Сделай его исполняемым только для владельца. Потом смени ему права на `644`. Покажи права до и после.
+**Task:** Make `script.sh` executable only by its owner. Then change its permissions to `644`. Display the permissions before and after the changes.
 
 ```bash
 ls -l script.sh
@@ -91,11 +91,11 @@ chmod 644 script.sh
 ls -l script.sh
 ```
 
-`chmod 644` устанавливает `rw-r--r--`; файл перестаёт быть исполняемым.
+`chmod 644` sets permissions to `rw-r--r--`; the file is no longer executable.
 
-## 10. Пользователь и входы в систему
+## 10. Current user and system logins
 
-**Условие:** Выведи свой ID, группы, кто ты, кто ещё залогинен в системе и последние 10 логинов в систему.
+**Task:** Display your user ID, groups, username, other logged-in users, and the last 10 system logins.
 
 ```bash
 id -u
@@ -105,21 +105,21 @@ who
 last -n 10
 ```
 
-## 11. Процессы apache/nginx, PID и порт 4444
+## 11. Apache/nginx processes, PID, and port 4444
 
-**Условие:** Найди все процессы с именем `apache` или `nginx`. Заверши процесс с PID `1234`. Найди процесс, который слушает порт `4444`.
+**Task:** Find all processes named `apache` or `nginx`. Terminate the process with PID `1234`. Find the process listening on port `4444`.
 
 ```bash
 ps aux | grep -E '[a]pache|[n]ginx'
 ps -p 1234 -o pid,user,command
-# Только в учебной среде и после проверки PID:
+# Only in a lab environment and after verifying the PID:
 kill 1234
 lsof -nP -iTCP:4444 -sTCP:LISTEN
 ```
 
-## 12. Сеть: IP, порты, ping, HTTP-заголовки
+## 12. Networking: IP addresses, ports, ping, and HTTP headers
 
-**Условие:** Покажи все IP-адреса машины, все слушающие порты с процессами, пропингуй `8.8.8.8` три раза и скачай заголовки сайта `https://example.com`.
+**Task:** Display all IP addresses of the machine and all listening ports with their processes. Ping `8.8.8.8` three times and retrieve the HTTP headers of `https://example.com`.
 
 ```bash
 ip addr show
@@ -128,23 +128,23 @@ ping -c 3 8.8.8.8
 curl -I https://example.com
 ```
 
-## 13. Подсчёт строк error
+## 13. Counting lines containing error
 
-**Условие:** В папке `/tmp/logs/` лежит 100 файлов. Нужно в одну команду найти во всех файлах строки с `error`, посчитать общее количество таких строк и сохранить результат в `/tmp/error_count.txt`.
+**Task:** The `/tmp/logs/` directory contains 100 files. Use a single command to find lines containing `error` across all files, count the total number of matching lines, and save the result to `/tmp/error_count.txt`.
 
 ```bash
 grep -rih "error" /tmp/logs/ | wc -l > /tmp/error_count.txt
 ```
 
-Проверка:
+Verification:
 
 ```bash
 cat /tmp/error_count.txt
 ```
 
-## 14. Статический анализ подозрительного бинаря
+## 14. Static analysis of a suspicious binary
 
-**Условие:** Есть подозрительный бинарь `/tmp/malware.bin`. Вытащи из него все читаемые строки и найди среди них URL, IP и слова `password`, `key`.
+**Task:** Given a suspicious binary `/tmp/malware.bin`, extract readable strings and search them for URLs, IP addresses, and the words `password` and `key`.
 
 ```bash
 strings /tmp/malware.bin
@@ -153,28 +153,28 @@ strings /tmp/malware.bin | grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}'
 strings /tmp/malware.bin | grep -iE 'password|key'
 ```
 
-Не запускай неизвестный бинарный файл. Эти команды предназначены для статического просмотра в изолированной учебной среде. Поиск IP/URL использует упрощённые шаблоны.
+Do not execute an unknown binary. These commands are intended for static inspection in an isolated lab environment. The IP and URL patterns are simplified.
 
-## 15. Исследование подозрительного майнера
+## 15. Investigating a suspicious miner
 
-**Условие:** На сервере кто-то запустил майнер. Найди процесс, который грузит CPU больше всех; узнай владельца и путь бинаря; найди его сетевые порты; запусти listener на 4444 для проверки обратного подключения.
+**Task:** Someone has started a miner on a server. Identify the process with the highest CPU usage, determine its owner and executable path, identify its network ports, and start a listener on port 4444 to check for a callback.
 
 ```bash
-# Самые активные процессы
+# Processes with the highest CPU usage
 ps aux --sort=-%cpu | head -n 10
 
-# Заменить 1234 на обнаруженный PID
+# Replace 1234 with the identified PID
 ps -p 1234 -o pid,ppid,user,%cpu,command
 sudo readlink -f /proc/1234/exe
 
-# Все сетевые соединения процесса
+# All network connections of the process
 sudo lsof -nP -a -p 1234 -i
 
-# Только слушающие TCP-порты процесса
+# Listening TCP ports of the process only
 sudo lsof -nP -a -p 1234 -iTCP -sTCP:LISTEN
 
-# Listener: только в изолированной, разрешённой лабораторной среде
+# Listener: only in an isolated, authorized lab environment
 nc -lvn 4444
 ```
 
-**Примечание:** Синтаксис `nc` зависит от реализации. Listener не заставляет процесс обращаться к этому порту; отсутствие входящего соединения не доказывает отсутствие исходящей активности майнера.
+**Note:** The syntax of `nc` depends on the implementation. A listener does not cause a process to connect to that port; the absence of an incoming connection does not prove that the miner has no outbound activity.

@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+# Task 22: Define a function accepting start and end values and calculating the inclusive sum.
+
 sum_range() {
   if (($# != 2)) || ! [[ $1 =~ ^-?[0-9]+$ && $2 =~ ^-?[0-9]+$ ]]; then
     echo "Usage: sum_range START END (integers)" >&2
@@ -15,4 +18,4 @@ sum_range() {
   echo "$sum"
 }
 sum_range 1 10
-# Другой пример: sum_range 1 5
+# Another example: sum_range 1 5
